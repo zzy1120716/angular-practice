@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_1">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular与JavaScript表达式之间的相互调用</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_1">
+  执行JavaScript表达式：<br/>
+  <input type="text" ng-model="expr1"/>
+  <button ng-click="testExp1(expr1)">计算</button>
+  <br/><br/>
+  执行Angular表达式：<br/>
+  <input type="text" ng-model="expr2"/>
+  <span ng-bind="$eval(expr2)"></span>
+</div>
+<script>
+  angular.module("a2_1", [])
+    .controller("c2_1", function($scope) {
+      $scope.expr1 = 20;
+      $scope.expr2 = '20+1|number:0';
+      $scope.testExp1 = function(expr){
+        var newv = parseInt(expr) + 1;
+        console.log(newv);
+      }
+    });
+</script>
+</body>
+</html>

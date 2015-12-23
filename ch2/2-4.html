@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_4">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>控制器初始化$scope对象</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_4">
+  <span>{{text}}</span>
+</div>
+<script>
+  angular.module("a2_4", [])
+    .controller("c2_4", function($scope) {
+      $scope.text = 'Hello!Angular';
+    });
+</script>
+</body>
+</html>

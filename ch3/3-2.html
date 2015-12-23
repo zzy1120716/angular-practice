@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html ng-app="a3_2">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>匹配(filter)方式过滤</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    ul {
+      list-style-type: none;
+      width: 408px;
+      margin: 0px;
+      padding: 0px;
+    }
+    ul li {
+      float: left;
+      padding: 5px 0px;
+    }
+    ul .odd {
+      color: #0026ff;
+    }
+    ul .even {
+      color: #ff0000;
+    }
+    ul .bold {
+      font-weight: bold;
+    }
+    ul li span {
+      width: 52px;
+      float: left;
+      padding: 0px 10px;
+    }
+    ul .focus {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c3_2">
+    <ul>
+      <li ng-class="{{bold}}">
+        <span>序号</span>
+        <span>姓名</span>
+        <span>性别</span>
+        <span>年龄</span>
+        <span>分数</span>
+      </li>
+      <li ng-repeat=" stu in data | filter: findscore "
+          ng-class-odd="'odd'"
+          ng-class-even="'even'"
+          ng-click="li_click($index)"
+          ng-class="{focus: $index==focus}">
+        <span>{{$index+1}}</span>
+        <span>{{stu.name}}</span>
+        <span>{{stu.sex}}</span>
+        <span>{{stu.age}}</span>
+        <span>{{stu.score}}</span>
+      </li>
+    </ul>
+  </div>
+<script>
+  angular.module("a3_2", [])
+    .controller("c3_2", ['$scope', function($scope) {
+      $scope.findscore = function(e){
+        return e.score > 85 && e.score < 90;
+      };
+      $scope.bold = "bold";
+      $scope.data = [
+        {name: '张明明', sex: "女", age: 24, score: 95},
+        {name: '李清思', sex: "女", age: 27, score: 87},
+        {name: '刘小华', sex: "男", age: 28, score: 86},
+        {name: '陈忠忠', sex: "男", age: 23, score: 97}
+      ];
+      $scope.li_click = function(i){
+        $scope.focus = i;
+      }
+    }])
+</script>
+</body>
+</html>

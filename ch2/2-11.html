@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_11">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>添加元素样式</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    ul {
+      list-style-type: none;
+      width: 408px;
+      margin: 0px;
+      padding: 0px;
+    }
+    ul li {
+      float: left;
+      padding: 5px 0px;
+    }
+    ul .odd {
+      color: #0026ff;
+    }
+    ul .even {
+      color: #ff0000;
+    }
+    ul .bold {
+      font-weight: bold;
+    }
+    ul li span {
+      width: 50px;
+      float: left;
+      padding: 0px 10px;
+    }
+    ul .focus {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+<div ng-controller="c2_11">
+  <ul>
+    <li ng-class="{{bold}}">
+      <span>序号</span>
+      <span>姓名</span>
+      <span>性别</span>
+      <span>是否首条</span>
+      <span>是否尾条</span>
+    </li>
+    <!-- ng-mouseover可替代ng-click -->
+    <li ng-repeat=" stu in data "
+        ng-class-odd="'odd'"
+        ng-class-even="'even'"
+        ng-click="li_click($index)"
+        ng-class="{focus: $index==focus}"
+      >
+      <span>{{$index+1}}</span>
+      <span>{{stu.name}}</span>
+      <span>{{stu.sex}}</span>
+      <span>{{$first?'是':'否'}}</span>
+      <span>{{$last?'是':'否'}}</span>
+    </li>
+  </ul>
+</div>
+<script>
+  angular.module("a2_11", [])
+    .controller("c2_11", ['$scope', function($scope) {
+
+      $scope.bold = 'bold';
+
+      $scope.li_click = function(i){
+        $scope.focus = i;
+      };
+
+      $scope.data = [
+        {name: '张明明', sex: '女'},
+        {name: '李清思', sex: '女'},
+        {name: '刘小华', sex: '男'},
+        {name: '陈忠忠', sex: '男'}
+      ];
+    }])
+</script>
+</body>
+</html>

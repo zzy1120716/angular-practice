@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_8">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$scope对象方法和属性的继承</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_8">
+  <div ng-controller="c2_8_1">
+    <span class="show">{{text}}</span><br/>
+    <span class="show">{{child_text}}</span>
+    <input type="button" id="btnShow" ng-click="click_show()" value="继承"/>
+  </div>
+</div>
+<script>
+  angular.module("a2_8", [])
+    .controller("c2_8", ['$scope', function($scope) {
+      $scope.text = 'Hello!Angular';
+      $scope.click_show = function(){
+        $scope.text = "单击按钮后显示的内容！";
+      };
+    }])
+
+    .controller("c2_8_1", ['$scope', function($scope) {
+      $scope.child_text = "欢迎来到Angular的精彩世界！";
+    }]);
+</script>
+</body>
+</html>

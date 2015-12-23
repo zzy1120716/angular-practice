@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_3">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular表达式的容错性</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_3">
+  <span>{{tmp}}</span>
+  <button ng-click="error();">单击</button>
+</div>
+<script>
+  angular.module("a2_3", [])
+    .controller("c2_3", function($scope) {
+      $scope.temp = 'Angular';
+      $scope.error = function(){
+        console.log(tmp);
+      }
+    });
+</script>
+</body>
+</html>

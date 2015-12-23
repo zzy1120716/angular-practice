@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_7">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>添加带参数的$scope方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_7">
+  <span class="show">{{text}}</span>
+  <input type="button" id="btnShow" ng-click="click_show()" value="显示"/>
+  <input type="button" id="btnRara" ng-click="click_para('单击了带参数按钮！')" value="带参数显示"/>
+</div>
+<script>
+  angular.module("a2_7", [])
+    .controller("c2_7", ['$scope', function($scope) {
+      $scope.text = 'Hello!Angular';
+      $scope.click_show = function(){
+        $scope.text = "单击后显示的内容！";
+      };
+      $scope.click_para = function(ptext){
+        $scope.text = ptext;
+      }
+    }]);
+</script>
+</body>
+</html>

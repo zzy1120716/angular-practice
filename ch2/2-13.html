@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_13">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单基本验证功能</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    input {
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+  <form name="temp_form" ng-submit="save()" ng-controller="c2_13">
+    <div>
+      <input type="text" name="t_name" ng-model="name" required/>
+      <span ng-show="temp_form.t_name.$error.required">姓名不能为空！</span>
+    </div>
+    <div>
+      <input type="email" name="t_email" ng-model="email" required/>
+      <span ng-show="temp_form.t_email.$error.required">邮件不能为空！</span>
+      <span ng-show="temp_form.t_email.$error.email">邮件格式不对！</span>
+    </div>
+    <input type="submit" ng-disabled="temp_form.$invalid" value="提交"/>
+  </form>
+<script>
+  angular.module("a2_13", [])
+    .controller("c2_13", ['$scope', function($scope) {
+      $scope.name = "陶国荣";
+      $scope.email = "tao_guo_rong@163.com";
+      $scope.save = function(){
+        console.log("提交成功！");
+      }
+    }])
+</script>
+</body>
+</html>

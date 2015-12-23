@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_15">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单中的select控件</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    div {
+      margin: 8px 0px;
+    }
+  </style>
+</head>
+<body>
+  <form name="temp_form" ng-controller="c2_15">
+    <div>
+      学制：
+      <select ng-model="a"
+              ng-options="v.id as v.name for v in a_data"
+              ng-change="a_change(a)">
+        <option value="">--请选择--</option>
+      </select>
+      <span>{{a_show}}</span>
+    </div>
+    <div>
+      班级：
+      <select ng-model="b"
+              ng-options="v.id as v.name group by v.grade for v in b_data"
+              ng-change="a_change(a)">
+        <option value="">--请选择--</option>
+      </select>
+      <span>{{b_show}}</span>
+    </div>
+  </form>
+<script>
+  angular.module("a2_15", [])
+    .controller("c2_15", ['$scope', function($scope) {
+      $scope.a_data = [
+        {id: '1001', name: '小学'},
+        {id: '1002', name: '初中'},
+        {id: '1003', name: '高中'}
+      ];
+      $scope.b_data = [
+        {id: '1001', name: '(1)班', grade: '一年级'},
+        {id: '1002', name: '(2)班', grade: '一年级'},
+        {id: '2001', name: '(1)班', grade: '二年级'},
+        {id: '2002', name: '(2)班', grade: '二年级'},
+        {id: '3001', name: '(1)班', grade: '三年级'},
+        {id: '3002', name: '(2)班', grade: '三年级'}
+      ];
+      $scope.a = "";
+      $scope.b = "";
+      $scope.a_change = function(a){
+        $scope.a_show = "您选择的是：" + a;
+      };
+      $scope.b_change = function(b){
+        $scope.b_show = "您选择的是：" + b;
+      }
+    }])
+</script>
+</body>
+</html>

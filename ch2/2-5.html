@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_5">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>通过表达式绑定$scope对象的方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_5">
+  <span class="show">{{span_show()}}</span>
+</div>
+<script>
+  angular.module("a2_5", [])
+    .controller("c2_5", ['$scope', function($scope) {
+      $scope.text = 'Hello!Angular';
+      $scope.span_show = function(){
+        $scope.text = '欢迎来到Angular的精彩世界！';
+        return $scope.text;
+      }
+    }]);
+</script>
+</body>
+</html>
