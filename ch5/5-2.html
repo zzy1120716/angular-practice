@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html ng-app="a5_2">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用ngRepeat方式遍历Model对象</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c5_2">
+    <p ng-repeat="stu in data" class="show">
+      <span>{{stu.name}}</span>
+      <span>{{stu.sex}}</span>
+    </p>
+  </div>
+<script>
+  angular.module('a5_2', [])
+    .controller('c5_2', ['$scope', function($scope) {
+      $scope.data = [
+        {name: "张明明", sex: "女"},
+        {name: "李清思", sex: "女"},
+        {name: "刘小华", sex: "男"},
+        {name: "陈忠忠", sex: "男"}
+      ];
+    }])
+</script>
+</body>
+</html>
