@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>传统的Ajax方式与服务器交互</title>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+<div class="frame">
+  <ul id="stuInfo">
+    <li>正在加载中...</li>
+  </ul>
+</div>
+<script type="text/javascript">
+  (function(){
+    var xhr = null;
+    if(window.ActiveXObject) {
+      xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else if(window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    }
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4) {
+        if(xhr.status == 200) {
+          var HTML = "";
+          var data = eval("(" + xhr.responseText + ")");
+          for(var i = 0; i < data.length; i++) {
+            HTML += "<li><span>" + data[i].Code + "</span>";
+            HTML += "<span>" + data[i].Name + "</span>";
+            HTML += "<span>" + data[i].Score + "</span></li>";
+          }
+          document.getElementById("stuInfo").innerHTML = HTML;
+        }
+      }
+    };
+    xhr.open("GET", "data/stu.php", true);
+    xhr.send();
+  })();
+</script>
+</body>
+</html>

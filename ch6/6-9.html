@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html ng-app="a6_9">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服务的多例性</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c6_9_1">
+    <div class="show">编号：{{stu.code}}</div>
+    <div class="show">姓名：{{stu.name}}</div>
+    <div class="show">分数：{{stu.score}}</div>
+    <button ng-click="reset()">重置</button>
+  </div>
+  <div ng-controller="c6_9_2">
+    <div class="show">编号：{{stu.code}}</div>
+    <div class="show">姓名：{{stu.name}}</div>
+    <div class="show">分数：{{stu.score}}</div>
+  </div>
+<script>
+  function student(json) {
+    angular.extend(this, json);
+    this.reset = function() {
+      this.code = 1000;
+      this.name = "张三";
+      this.score = 0;
+    }
+  }
+
+  student.create = function() {
+    return new student({
+      code: 1001,
+      name: "王心明",
+      score: 98
+    });
+  };
+
+  angular.module('a6_9', [])
+    .factory('$student', function() {
+      return {
+        create: student.create
+      }
+    })
+
+    .controller('c6_9_1', ['$scope', '$student', function($scope, $student) {
+      $scope.stu = $student.create();
+      $scope.reset = function() {
+        $scope.stu.reset();
+      }
+    }])
+
+    .controller('c6_9_2', ['$scope', '$student', function($scope, $student) {
+      $scope.stu = $student.create();
+    }])
+</script>
+</body>
+</html>

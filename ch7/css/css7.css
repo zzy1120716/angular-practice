@@ -1,0 +1,33 @@
+.frame {
+	font-size: 12px;
+	width: 320px;
+	float: left;
+}
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+ul li {
+	background-color: #f3f1f1;
+	padding: 8px;
+	float: left;
+	border-bottom: solid 1px #666;
+}
+ul li span {
+	text-align: left;
+	width: 86px;
+	height: 18px;
+	line-height: 18px;
+	float: left;
+}
+.show {
+	width: 260px;
+	padding: 8px;
+	background-color: #eee;
+}
+.show .tip {
+	font-size: 9px;
+	color: #666;
+	margin: 8px 3px;
+}

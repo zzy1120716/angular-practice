@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_9">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise对象的创建和使用</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-resource.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_9">
+	  <div class="show">
+		  <div class="tip">{{t0}}</div>
+		  <div class="tip">{{t1}}</div>
+		  <button ng-click="action(true)">解决</button>
+		  <button ng-click="action(false)">拒绝</button>
+	  </div>
+  </div>
+<script>
+  angular.module('a7_9', [])
+	  .controller('c7_9', ['$scope', '$q', function($scope, $q) {
+	    var defer = $q.defer();
+		  $scope.action = function(type) {
+			  defer.notify(0);
+			  type ? defer.resolve(1) : defer.reject(1);
+		  };
+		  var promise = defer.promise;
+		  promise.then(function(n) {
+			  n++;
+			  $scope.t1 = "已处理完成：" + n;
+		  }, function(n) {
+			  n++;
+			  $scope.t1 = "未完成原因：" + n;
+		  }, function(n) {
+			  n++;
+			  $scope.t0 = "正在处理中：" + n;
+		  })
+	  }])
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

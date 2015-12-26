@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_7">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$resource对象中方法的使用</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-resource.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_7">
+    <ul style="margin-bottom: 80px">
+	    <li ng-repeat="item in items">
+		    <span>{{item.Code}}</span>
+		    <span>{{item.Name}}</span>
+		    <span>{{item.Sex}}</span>
+	    </li>
+    </ul>
+	  <div class="show">
+		  Key值：<input type="text" ng-model="key">
+		  <button ng-click="save()">保存</button>
+		  <div class="tip">{{result}}</div>
+	  </div>
+  </div>
+<script>
+  angular.module('a7_7', ['ngResource'])
+	  .config(['$httpProvider', function($httpProvider) {
+		  $httpProvider.defaults.transformRequest = function(obj) {
+			  var arrStr = [];
+			  for(var p in obj) {
+				  arrStr.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			  }
+			  return arrStr.join("&");
+		  };
+		  $httpProvider.defaults.headers.post = {
+			  "Content-Type" : "application/x-www-form-urlencoded"
+		  }
+	  }])
+
+    .controller('c7_7', ['$scope', '$resource', function($scope, $resource) {
+      var stus = $resource('data/info.php');
+	    stus.query({action: 'search'}, function(resp) {
+		    $scope.items = resp;
+	    });
+	    $scope.save = function() {
+		    var data = {
+			    key: $scope.key
+		    };
+		    stus.save({action: 'save'}, data, function(resp) {
+			    $scope.result = (resp[0] == "1") ? "保存成功！" : "保存失败！";
+		    })
+	    }
+    }])
+</script>
+</body>
+</html>

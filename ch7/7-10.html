@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_10">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise对象在$http中的应用</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-resource.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_10">
+	  <div class="show">
+		  <div class="tip">{{result}}</div>
+	  </div>
+  </div>
+<script>
+  angular.module('a7_10', [])
+	  .factory('async', ['$q', '$http', function($q, $http) {
+		  var defer = $q.defer();
+		  $http.get('data/async.php')
+			  .success(function(data) {
+				  defer.resolve(data);
+			  })
+			  .error(function(reason) {
+				  defer.resolve(reason);
+			  });
+		  return defer.promise;
+	  }])
+
+	  .controller('c7_10', ['$scope', 'async', function($scope, async) {
+	    var promise = async;
+		  promise.then(function(resp) {
+			  $scope.result = "请求成功：" + resp;
+		  }, function(resp) {
+			  $scope.result = "请求失败：" + resp;
+		  })
+	  }])
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

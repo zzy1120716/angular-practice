@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_6">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义$http服务中的缓存</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_6">
+	  <div class="show">
+		  <div class="tip">接收内容是：{{result}}</div>
+		  <button ng-click="refresh()">刷新</button>
+	  </div>
+  </div>
+<script>
+  angular.module('a7_6', [])
+	  .service("cache", ['$cacheFactory', function($cacheFactory) {
+		  return $cacheFactory("mycache", {capacity: 3});
+	  }])
+
+    .controller('c7_6', ['$scope', '$http', 'cache', function($scope, $http, cache) {
+      var url = "data/cache.php";
+	    $http({
+		    method: 'GET',
+		    url: url,
+		    cache: cache
+	    }).success(function(data, status, headers, config) {
+		    $scope.result = data;
+		    cache.put("c", data);
+	    });
+	    $scope.refresh = function() {
+		    var _c = cache.get("c");
+		    $scope.result = (_c) ? _c + "(来源缓存)" : "刷新失败!";
+	    }
+    }])
+</script>
+</body>
+</html>

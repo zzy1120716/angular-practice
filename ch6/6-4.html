@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html ng-app="a6_4">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用service方法自定义服务</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c6_4">
+    <div class="show">姓名：{{name}}</div>
+    <div class="show">邮件：{{email}}</div>
+    <div class="show">{{title}}</div>
+    <button ng-click="say()">主题</button>
+  </div>
+<script>
+  angular.module('a6_4', [])
+    .service('$student', function() {
+      this.name = '陶国荣';
+      this.email = 'tao_guo_rong@163.com';
+      this.say = function() {
+        return "hello, angular!";
+      }
+    })
+
+    .controller('c6_4', ['$scope', '$student', function($scope, $student) {
+      $scope.name = $student.name;
+      $scope.email = $student.email;
+      $scope.say = function() {
+        $scope.title = $student.say();
+      }
+    }])
+</script>
+</body>
+</html>

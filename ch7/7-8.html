@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_8">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$resource服务中自定义方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-resource.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_8">
+	  <div class="show">
+		  <div class="tip">{{r0}}</div>
+		  <div class="tip">{{r1}}</div>
+		  <div class="tip">{{r2}}</div>
+		  <button ng-click="click()">开始</button>
+	  </div>
+  </div>
+<script>
+	var url = "data/self.php?action=:act";
+  angular.module('a7_8', ['ngResource'])
+	  .config(function($httpProvider) {
+		  $httpProvider.defaults.transformRequest = function(obj) {
+			  var arrStr = [];
+			  for(var p in obj) {
+				  arrStr.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			  }
+			  return arrStr.join("&");
+		  };
+		  $httpProvider.defaults.headers.post = {
+			  'Content-Type' : 'application/x-www-form-urlencoded'
+		  }
+	  })
+
+	  .factory('custom', ['$resource', function($resource) {
+		  return $resource(url,
+			  {act: 'search'},
+		    {
+			    update: {
+				    method: 'POST',
+				    params: {
+					    update: true
+				    },
+				    isArray: false
+			    }
+		    });
+	  }])
+
+	  .controller('c7_8', ['$scope', 'custom', function($scope, custom) {
+		  $scope.click = function() {
+			  custom.get({id: '1010'}, function(resp0) {
+				  $scope.r0 = (resp0[0] == "1") ? "查找成功！" : "更新失败！";
+				  resp0.key = '1011';
+				  resp0.$update({act : "update"}, function(resp1) {
+					  $scope.r1 = (resp1[0] == "1") ? "更新成功！" : "更新失败！";
+					  resp1.key = '1012';
+					  resp1.$save({act : 'save'}, function(resp2) {
+						  $scope.r2 = (resp2[0] == "1") ? "保存成功！" : "保存失败！";
+					  })
+				  })
+			  })
+		  }
+	  }])
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

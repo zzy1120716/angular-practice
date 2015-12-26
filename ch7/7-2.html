@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html ng-app="a7_2">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用$http快捷方法与服务端交互</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+	<link rel="stylesheet" href="css/css7.css">
+</head>
+<body>
+  <div class="frame" ng-controller="c7_2">
+	  <div class="show">
+		  <div class="tip">POST返回的结果是：{{result}}</div>
+		  <button ng-click="onclick()">发送</button>
+	  </div>
+  </div>
+<script>
+  angular.module('a7_2', [])
+    .config(function($httpProvider) {
+      $httpProvider.defaults.transformRequest = function(obj) {
+	      var arrStr = [];
+	      for(var p in obj) {
+		      arrStr.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	      }
+	      return arrStr.join("&");
+      };
+
+	    $httpProvider.defaults.headers.post = {
+		    'Content-Type' : 'application/x-www-form-urlencoded'
+	    }
+    })
+
+    .controller('c7_2', ['$scope', '$http', function($scope, $http) {
+      var postData = {name: '陶国荣'};
+	    $scope.onclick = function() {
+		    $http.post('data/post.php', postData)
+			    .success(function(data, status, headers, config) {
+				    $scope.result = data;
+			    })
+	    }
+    }])
+</script>
+</body>
+</html>
