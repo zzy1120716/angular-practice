@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="a8_1">
+<head>
+	<title>创建一个新的指令</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame">
+		<ts-hello></ts-hello>
+		<div ts-hello></div>
+		<div class="ts-hello"></div>
+		<div data-ts-hello></div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a8_1', []);
+		app.directive('tsHello', function() {
+			return {
+				restrict: 'EAC',
+				template: '<h3>Hello, angular!</h3>'
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="a9_6">
+<head>
+	<title>HTML5模式</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div {
+			margin: 5px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c9_6">
+		<div>完整地址：{{absUrl}}</div>
+		<div>hash片段：{{hash}}</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a9_6', [])
+			.config(['$locationProvider',function($locationProvider) {
+				$locationProvider.html5Mode(true);
+				$locationProvider.hashPrefix('!!!');
+			}])
+
+			.controller('c9_6', ['$scope', '$location', function($scope, $location) {
+				$scope.absUrl = $location.absUrl();
+				$scope.hash = $location.hash();
+			}])
+	</script>
+</body>
+</html>

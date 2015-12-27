@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="a8_7">
+<head>
+	<title>scope属性是JSON对象</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.tip {
+			font-size: 9px;
+			color: #666;
+			margin: 3px 0px;
+			padding: 5px 0px;
+		}
+	</style>
+	<script type="text/ng-template" id="tpl">
+		<div class="tip">
+			<span>姓名：{{textName}}</span>
+			<span>年龄：{{textAge}}</span>
+		</div>
+		<button ng-transclude></button>
+	</script>
+</head>
+<body>
+	<div class="frame" ng-controller="c8_7">
+		姓名：<input type="text" ng-model="text_name" placeholder="请输入姓名"><br>
+		年龄：<input type="text" ng-model="text_age" placeholder="请输入年龄">
+		<div class="tip">{{tip}}</div>
+		<ts-json a-attr="{{text_name}}"
+		         b-attr="text_age" reset="reSet()">重置</ts-json>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a8_7', [])
+			.controller('c8_7', ['$scope', function($scope) {
+				$scope.reSet = function() {
+					$scope.tip = "姓名与年龄重置成功！";
+				}
+			}])
+
+			.directive('tsJson', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'tpl',
+					transclude: true,
+					scope: {
+						textName: '@aAttr',
+						textAge: '=bAttr',
+						reSet: '&reset'
+					},
+					link: function(scope, iEle, iAttrs) {
+						iEle.bind('click', function() {
+							scope.$apply(function() {
+								scope.reSet();
+								scope.textName = '张三';
+								scope.textAge = '20';
+							})
+						})
+					}
+				}
+			})
+	</script>
+</body>
+</html>

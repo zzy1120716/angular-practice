@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="a9_8">
+<head>
+	<title>路由对象方法的双向绑定</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div {
+			margin: 3px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c9_8">
+		<div>
+			<input type="text" id="Text1" ng-model="locationPath">
+		</div>
+		<div>{{locationPath}}</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a9_8', [])
+			.controller('c9_8', ['$scope', '$location', function($scope, $location) {
+				$scope.$watch('locationPath', function(path) {
+					$location.path(path);
+				});
+				$scope.$watch('$location.path()', function(path) {
+					$scope.locationPath = path;
+				});
+			}])
+	</script>
+</body>
+</html>

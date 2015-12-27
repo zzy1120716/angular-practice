@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html ng-app="a9_7">
+<head>
+	<title>模式间的区别与关联</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div {
+			margin: 5px 0px;
+		}
+		.frame .title {
+			font-size: 13px;
+			font-weight: bold;
+		}
+		.frame .show {
+			display: block;
+		}
+		.frame .hide {
+			display: none;
+		}
+		.frame .brow input {
+			width: 310px;
+			padding: 3px;
+			border: solid 1px #666;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c9_7">
+		<div class="title">
+			<input type="radio" name="type" checked ng-click="rdo_click(0)">Hashbang模式
+			<input type="radio" name="type" ng-click="rdo_click(1)">HTML5模式
+		</div>
+		<div id="hashbang" ng-class="cls_a" ng-controller="c9_5_hashbang">
+			<div ts-brow-bar bs="hashbang" class="brow"></div>
+			<div>hash片段：{{$location.hash()}}</div>
+			<div>查询字符：{{$location.search()}}</div>
+			<div>页面路径：{{$location.path()}}</div>
+			<a href="http://www.rttop.cn/a/c?a=b">/a/c?a=b</a> |
+			<a href="http://www.rttop.cn/a/b/c?flag#hash">b/c?flag#hash</a>
+		</div>
+		<div id="html5" ng-class="cls_b" ng-controller="c9_5_html5">
+			<div ts-brow-bar bs="html5" class="brow"></div>
+			<div>hash片段：{{$location.hash()}}</div>
+			<div>查询字符：{{$location.search()}}</div>
+			<div>页面路径：{{$location.path()}}</div>
+			<a href="http://www.rttop.cn/a/c?a=b">/a/c?a=b</a> |
+			<a href="http://www.rttop.cn/a/b/c?flag#hash">b/c?flag#hash</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a9_7', [])
+			.controller('c9_7', ['$scope', function($scope) {
+				$scope.cls_a = "show";
+				$scope.cls_b = "hide";
+				$scope.rdo_click = function(v) {
+					if(!v) {
+						$scope.cls_a = "show";
+						$scope.cls_b = "hide";
+					} else {
+						$scope.cls_a = "hide";
+						$scope.cls_b = "show";
+					}
+				}
+			}])
+
+			.controller('c9_5_hashbang', function($scope, $location) {
+				$scope.$location = $location;
+			})
+
+			.controller('c9_5_html5', function($scope, $location) {
+				$scope.$location = $location;
+			});
+
+		/*function c9_5_hashbang($scope, $location) {
+			$scope.$location = $location;
+		}
+
+		function c9_5_html5($scope, $location) {
+			$scope.$location = $location;
+		}*/
+
+		function Brow(initUrl, baseHref) {
+			this.onUrlChange = function(fn) {
+				this.urlChange = fn;
+			};
+			this.url = function() {
+				return initUrl;
+			};
+			this.baseHref = function() {
+				return baseHref;
+			}
+		}
+
+		var Brows = {
+			html5: new Brow('http://www.rttop.cn/a/c?a=b#hash', '/a/index.html'),
+			hashbang: new Brow('http://www.rttop.cn/a/index.html#!/c?a=b#hash', '/a/index.html')
+		};
+
+		function createBrow(name) {
+			var root = angular.element(document.getElementById(name));
+			angular.bootstrap(root, [
+				function($compileProvider, $locationProvider, $provide) {
+					$locationProvider.html5Mode(true).hashPrefix('!');
+					$provide.value('$browser', Brows[name]);
+					$provide.value('$document', root);
+					$provide.value('$sniffer', {history: name == 'html5'});
+					$compileProvider.directive('tsBrowBar', function() {
+						return function(scope, elm, attrs) {
+							var bs = Brows[attrs.bs];
+							var input = angular.element('<input type="text" />').val(bs.url());
+							bs.url = function(url) {
+								return input.val(url);
+							};
+							elm.append(input);
+						};
+					});
+				}
+			]);
+		}
+		createBrow('html5');
+		createBrow('hashbang');
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

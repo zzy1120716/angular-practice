@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="a8_3">
+<head>
+	<title>设置指令对象中的transclude属性</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.tip {
+			font-size: 9px;
+			color: #666;
+			margin: 3px 5px;
+		}
+	</style>
+	<script type="text/ng-template" id="tpl">
+		<div class="frame">
+			<input type="text" ng-model="text">
+			<div ng-transclude class="tip"></div>
+		</div>
+	</script>
+</head>
+<body>
+	<ts-tplscript>{{text}}</ts-tplscript>
+	<script type="text/javascript">
+		var app = angular.module('a8_3', [])
+			.directive('tsTplscript', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'tpl',
+					transclude: true
+				};
+			})
+	</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="a8_5">
+<head>
+	<title>设置指令对象中的compile属性</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c8_5">
+		<ts-a>
+			<ts-b>{{tip}}</ts-b>
+		</ts-a>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a8_5', [])
+			.controller('c8_5', ['$scope', function($scope) {
+				$scope.tip = "跟踪compile执行过程";
+			}])
+
+			.directive('tsA', function() {
+				return {
+					restrict: 'EAC',
+					compile: function(tEle, tAttrs, trans) {
+						console.log('正在编译A指令');
+						return {
+							pre: function(scope, iEle, iAttrs) {
+								console.log('正在执行A指令中pre函数');
+							},
+							post: function(scope, iEle, iAttrs) {
+								console.log('正在执行A指令中post函数');
+							}
+						}
+					}
+				}
+			})
+
+			.directive('tsB', function() {
+				return {
+					restrict: 'EAC',
+					compile: function(tEle, tAttrs, trans) {
+						console.log('正在编译B指令');
+						return {
+							pre: function(scope, iEle, iAttrs) {
+								console.log('正在执行B指令中pre函数');
+							},
+							post: function(scope, iEle, iAttrs) {
+								console.log('正在执行B指令中post函数');
+							}
+						}
+					}
+				}
+			})
+	</script>
+</body>
+</html>

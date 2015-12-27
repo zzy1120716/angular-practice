@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="a9_3">
+<head>
+	<title>$locationChangeStart事件</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div {
+			margin: 5px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c9_3">
+		<div>当前URL：{{current}}</div>
+		<div>上页URL：{{previous}}</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a9_3', [])
+			.controller('c9_3', ['$rootScope', '$window', '$scope', '$location', function($rootScope, $window, $scope, $location) {
+				$rootScope.$on('$locationChangeStart', function(evt, current, previous) {
+					$scope.current = current;
+					$scope.previous = previous;
+				})
+			}])
+	</script>
+</body>
+</html>

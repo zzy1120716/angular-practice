@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="a8_2">
+<head>
+	<title>设置指令对象的基础属性</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame">
+		<ts-tplfile></ts-tplfile>
+		<ts-tplscript></ts-tplscript>
+		<ts-tplcache></ts-tplcache>
+	</div>
+	<script type="text/ng-template" id="tpl">
+		<h3>模板内容来源于script元素</h3>
+	</script>
+	<script type="text/javascript">
+		var app = angular.module('a8_2', [])
+			.run(['$templateCache', function($templateCache) {
+				$templateCache.put('cache', '<h3>模板内容来源于缓存</h3>')
+			}])
+
+			.directive('tsTplfile', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'tpl.html'
+				};
+			})
+
+			.directive('tsTplscript', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'tpl',
+					replace: true
+				};
+			})
+
+			.directive('tsTplcache', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'cache'
+				};
+			})
+	</script>
+</body>
+</html>

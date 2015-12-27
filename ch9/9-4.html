@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="a9_4">
+<head>
+	<title>$locationChangeSuccess事件</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 5px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.frame div {
+			margin: 5px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame" ng-controller="c9_4">
+		<div>当前状态1：{{tip_a}}</div>
+		<div>当前URL：{{current}}</div>
+		<hr>
+		<div>当前状态2：{{tip_b}}</div>
+		<div>上页URL：{{previous}}</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a9_4', [])
+			.controller('c9_4', ['$rootScope', '$window', '$location', '$log', '$scope',function($rootScope, $window, $location, $log, $scope) {
+				$rootScope.$on("$locationChangeStart", function(evt, current, previous) {
+					$scope.tip_a = 'Url地址即将发生改变！';
+					var yn = $window.confirm('确定真的要离开吗？');
+					if(yn) {
+						$location.path('/change');
+						return;
+					}
+					evt.preventDefault();
+					$scope.tip_b = "用户取消了Url的改变！";
+					$scope.current = current;
+					$scope.previous = previous;
+				});
+				$rootScope.$on('$locationChangeSuccess', function(evt, current, previous) {
+					$scope.tip_b = "URL地址改变操作完成！";
+					$scope.current = current;
+					$scope.previous = previous;
+				})
+			}])
+	</script>
+</body>
+</html>

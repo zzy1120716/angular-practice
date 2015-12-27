@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="a8_4">
+<head>
+	<title>设置指令对象中的link属性</title>
+	<meta charset="UTF-8">
+	<script src="../lib/angular.min.js"></script>
+	<style type="text/css">
+		.frame {
+			padding: 2px 8px;
+			margin: 0px;
+			font-size: 12px;
+			width: 320px;
+			background-color: #eee;
+		}
+		.tip {
+			font-size: 9px;
+			color: #666;
+			margin: 3px 5px;
+		}
+	</style>
+	<script type="text/ng-template" id="tpl">
+		<button>单击按钮</button>
+	</script>
+</head>
+<body>
+	<div class="frame">
+		<ts-tplscript></ts-tplscript>
+		<div class="tip">{{content}}</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('a8_4', [])
+			.directive('tsTplscript', function() {
+				return {
+					restrict: 'EAC',
+					templateUrl: 'tpl',
+					replace: true,
+					link: function(scope, iEle, iAttrs) {
+						iEle.bind('click', function() {
+							scope.$apply(function() {
+								scope.content = "这是点击后的显示的内容";
+							});
+							iAttrs.$$element[0].disabled = true;
+						});
+					}
+				};
+			})
+	</script>
+</body>
+</html>
