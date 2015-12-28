@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html ng-app="a4_6">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>has和get方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+  <div ng-controller="c4_6">
+    <!-- 视图组件 -->
+  </div>
+<script>
+  var a4_6 = angular.module("a4_6", [])
+    .factory('$custom', function() {
+      return {
+        print: function(msg) {
+          console.log(msg);
+        }
+      }
+    });
+
+  var injector = angular.injector(['a4_6', 'ng']);
+  var has = injector.has('$custom');
+  console.log(has);
+
+  if(has) {
+    var custom = injector.get('$custom');
+    custom.print("控制台输出任意的内容！");
+  }
+
+  a4_6.controller('c4_6', ['$scope', '$custom', function($scope, $custom) {
+    //控制器代码
+  }]);
+</script>
+</body>
+</html>

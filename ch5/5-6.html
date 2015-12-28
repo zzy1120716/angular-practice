@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html ng-app="a5_6">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View组件中的模板切换</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-route.min.js"></script>
+  <style>
+    body {
+      font-size: 13px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <a href="#">首页</a>
+    <a href="#/book">图书</a>
+    <a href="#/game">游戏</a>
+  </div>
+  <div ng-view></div>
+<script>
+  var a5_6 = angular.module('a5_6', ['ngRoute']);
+
+  a5_6.controller('a5_6_1', ['$scope', function($scope) {
+    $scope.title = "这是首页";
+  }]);
+
+  a5_6.controller('a5_6_2', ['$scope', function($scope) {
+    $scope.title = "这是图书页";
+  }]);
+
+  a5_6.controller('a5_6_3', ['$scope', function($scope) {
+    $scope.title = "这是游戏页";
+  }]);
+
+  a5_6.config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+      .when('/', {
+        controller: 'a5_6_1',
+        template: "<div class='show'>{{title}}</div>"
+      })
+      .when('/book', {
+        controller: 'a5_6_2',
+        template: "<div class='show'>{{title}}</div>"
+      })
+      .when('/game', {
+        controller: 'a5_6_3',
+        template: "<div class='show'>{{title}}</div>"
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+  }])
+
+</script>
+</body>
+</html>

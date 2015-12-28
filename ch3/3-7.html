@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html ng-app="a3_7">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作为数据模型的作用域</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    div {
+      margin: 8px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c3_7">
+    <div>
+      <input type="text" ng-model="name" placeholder="请输入姓名"/>
+    </div>
+    <div>{{name}}</div>
+  </div>
+<script>
+  angular.module("a3_7", [])
+    .controller("c3_7", ['$scope', function($scope) {
+      $scope.name = '';
+    }])
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html ng-app="a3_9">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作用域事件的传播</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c3_9_p">
+    <div ng-controller="c3_9_s">
+      <button ng-click="to_parent()">向父级传播</button>
+      <button ng-click="to_child()">向子级传播</button>
+      <div ng-controller="c3_9_c"></div>
+    </div>
+    <div ng-controller="c3_9_b"></div>
+  </div>
+<script>
+  angular.module("a3_9", [])
+    .controller("c3_9_s", ['$scope', function($scope) {
+      $scope.to_parent = function() {
+        $scope.$emit('event_1', '事件来源于子级')
+      };
+      $scope.to_child = function() {
+        $scope.$broadcast('event_2', '事件来源于父级');
+      }
+    }])
+
+    .controller("c3_9_p", ['$scope', function($scope) {
+      $scope.$on('event_1', function(event, data) {
+        console.log('在父级中监听到 ', data);
+      });
+      $scope.$on('event_2', function(event, data) {
+        console.log('在父级中监听到 ', data);
+      });
+    }])
+
+    .controller("c3_9_c", ['$scope', function($scope) {
+      $scope.$on('event_1', function(event, data) {
+        console.log('在子级中监听到 ', data);
+      });
+      $scope.$on('event_2', function(event, data) {
+        console.log('在子级中监听到 ', data);
+      });
+    }])
+
+    .controller("c3_9_b", ['$scope', function($scope) {
+      $scope.$on('event_1', function(event, data) {
+        console.log('在同级中监听到 ', data);
+      });
+      $scope.$on('event_2', function(event, data) {
+        console.log('在同级中监听到 ', data);
+      });
+    }]);
+
+</script>
+</body>
+</html>

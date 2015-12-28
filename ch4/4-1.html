@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html ng-app="a4_1">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>依赖注入的原理</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    .show {
+      border: solid 1px #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c4_1">
+    <div class="{{cls}}">{{show}}</div>
+    <button ng-click="onClick()">点我</button>
+  </div>
+<script>
+  angular.module("a4_1", [])
+    .config(function($controllerProvider) {
+      $controllerProvider.register('c4_1', ['$scope', function($scope){
+        $scope.cls = '';
+        $scope.onClick = function() {
+          $scope.cls = 'show';
+          $scope.show = '点击后显示的内容';
+        }
+      }])
+    })
+</script>
+</body>
+</html>

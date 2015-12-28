@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html ng-app="a3_6">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$watch方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    div {
+      margin: 8px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c3_6">
+    <div>
+      <input type="text" ng-model="name" placeholder="请输入姓名"/>
+    </div>
+    <div>累计变化次数: {{count}}</div>
+  </div>
+<script>
+  angular.module("a3_6", [])
+    .controller("c3_6", ['$scope', function($scope) {
+      $scope.count = 0;
+      $scope.name = '';
+      $scope.$watch('name', function() {
+        $scope.count++;
+      })
+    }])
+</script>
+</body>
+</html>

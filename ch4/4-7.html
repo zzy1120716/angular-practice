@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html ng-app="a4_7">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>invoke方法</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+  <div ng-controller="c4_7">
+    <!-- 视图组件 -->
+  </div>
+<script>
+  var a4_7 = angular.module("a4_7", [])
+    .factory('$custom', function() {
+      return {
+        print: function(msg) {
+          console.log(msg);
+        }
+      }
+    });
+  var injector = angular.injector(['a4_7', 'ng']);
+  var fun = function($custom) {
+    $custom.print("函数执行成功！");
+  };
+  injector.invoke(fun);
+
+  a4_7.controller('c4_7', ['$scope', '$custom', function($scope, $custom) {
+    //控制器代码
+  }])
+</script>
+</body>
+</html>

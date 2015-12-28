@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html ng-app="a5_7">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在切换视图模板时传参数</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-route.min.js"></script>
+  <style>
+    body {
+      font-size: 13px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-view></div>
+  <script>
+    var a5_7 = angular.module('a5_7', ['ngRoute']);
+
+    a5_7.controller('c5_7_1', ['$scope', function($scope) {
+      $scope.students = students;
+    }]);
+
+    a5_7.controller('c5_7_2', ['$scope', '$routeParams', function($scope, $routeParams) {
+      for(var i = 0; i < students.length; i++) {
+        if(students[i].stuId == $routeParams.id) {
+          $scope.student = students[i];
+        }
+      }
+    }]);
+
+    a5_7.config(['$routeProvider', function($routeProvider) {
+      $routeProvider
+        .when('/', {
+          controller: 'c5_7_1',
+          templateUrl: "5-7-1.html"
+        })
+        .when('/view/:id', {
+          controller: 'c5_7_2',
+          templateUrl: "5-7-2.html",
+          publicAccess: true
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    }]);
+
+    var students = [
+      {stuId: 1000, name: '张明明', sex: "女", score: 60},
+      {stuId: 1001, name: '李清思', sex: "女", score: 80},
+      {stuId: 1002, name: '刘小华', sex: "男", score: 90},
+      {stuId: 1003, name: '陈忠忠', sex: "男", score: 70}
+    ];
+
+  </script>
+</body>
+</html>

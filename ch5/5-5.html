@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html ng-app="a5_5">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>控制器中属性和方法的继承</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+  <style>
+    body {
+      font-size: 12px;
+    }
+    .show {
+      background-color: #ccc;
+      padding: 8px;
+      width: 260px;
+      margin: 10px 0px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="c5_5">
+    <div class="show">
+      {{name_a+"/"+name_b+"/"+name_c+"/"+score}}
+    </div>
+    <div ng-controller="c5_5_1">
+      <div class="show">
+        {{name_a+"/"+name_b+"/"+name_c+"/"+score}}
+      </div>
+      <div ng-controller="c5_5_1_1">
+        <div class="show">
+          {{name_a+"/"+name_b+"/"+name_c+"/"+score}}
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  angular.module('a5_5', [])
+    .controller('c5_5', ['$scope', function($scope) {
+      $scope.name_a = "张三";
+      $scope.score = 60;
+    }])
+
+    .controller('c5_5_1', ['$scope', function($scope) {
+      $scope.name_b = "李四";
+      $scope.score = 70;
+    }])
+
+    .controller('c5_5_1_1', ['$scope', function($scope) {
+      $scope.name_c = "王二";
+      $scope.score = 80;
+    }])
+</script>
+</body>
+</html>

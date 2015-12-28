@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html ng-app="a4_4">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>标记式注入</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<style>
+  body {
+    font-size: 12px;
+  }
+  .show {
+    margin: 10px 0px;
+  }
+</style>
+<body>
+  <div ng-controller="c4_4">
+    <div class="show">{{text}}</div>
+    <input type="button" id="btnShow" value="弹出" ng-click="onShow('我是一个弹出对话框')"/>
+    <input type="button" id="btnWrite" value="显示" ng-click="onWrite('今天天气有点冷啊！')"/>
+  </div>
+<script>
+  var c4_4 = function($scope, $show, $write) {
+    $scope.onShow = function(msg) {
+      $show.show(msg);
+    };
+    $scope.onWrite = function(msg) {
+      $scope.text = $write.write(msg);
+    }
+  };
+
+  c4_4.$inject = ['$scope', '$show', '$write'];
+
+  angular.module("a4_4", [])
+
+    .controller('c4_4', c4_4)
+
+    .factory('$show', ['$window', function($window) {
+      return {
+        show: function(text) {
+          $window.alert(text);
+        }
+      }
+    }])
+
+    .factory('$write', function() {
+      return {
+        write: function(text) {
+          return text;
+        }
+      }
+    });
+</script>
+</body>
+</html>

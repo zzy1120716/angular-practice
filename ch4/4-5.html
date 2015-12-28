@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html ng-app="a4_5">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行内式注入</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<style>
+  body {
+    font-size: 12px;
+  }
+  .show {
+    margin: 10px 0px;
+  }
+</style>
+<body>
+  <div ng-controller="c4_5">
+    <div ng-class="show">{{text}}</div>
+    <input type="button" id="btnSum" value="求和" ng-click="onClick(5,10)"/>
+  </div>
+<script>
+  angular.module("a4_5", [])
+    .factory('$sum', function() {
+      return {
+        add: function(m, n) {
+          return m + n;
+        }
+      }
+    })
+
+    .controller('c4_5', ['$scope', '$sum', function($scope, $sum) {
+      $scope.onClick = function(m, n) {
+        $scope.text = m + " + " + n + " = " + $sum.add(m, n);
+      }
+    }]);
+</script>
+</body>
+</html>
