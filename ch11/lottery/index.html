@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="lottery">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>抽奖游戏</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="../../lib/angular.min.js"></script>
+</head>
+<body>
+<div id="lottery" ng-controller="ctrl_lottery">
+	<div id="step1">
+		<button ng-click="start()">开始</button>
+	</div>
+	<div id="step2" class="hide">
+		<div ng-repeat="item in items"
+		     id="{{item.id}}" class="item"
+				 ng-class="{'active':item.status}">
+			{{item.name}}
+		</div>
+	</div>
+	<div id="step3" class="hide top">
+		<a href="javascript:void(0);"
+			 ng-click="reset()"
+		   class="reset">
+			<img src="images/reset.png">重新开始
+		</a>
+		<a href="javascript:void(0);"
+			 ng-click="edit()"
+		   class="edit">
+			<img src="images/edit.png">修改奖品
+		</a>
+		<button class="active">{{result}}</button>
+	</div>
+	<div id="step4" class="hide top">
+		<a href="javascript:void(0);"
+		   ng-click="return()"
+		   class="reset">
+			<img src="images/return.png">返回
+		</a>
+		<form ng-submit="add()">
+			<input type="text" ng-model="name" required placeholder="名称">
+			<input type="submit" class="btn" value="添加">
+		</form>
+		<ul>
+			<li ng-repeat="item in items">
+				<span>{{item.id}}</span>
+				<span class="span">{{item.name}}</span>
+				<a href="javascript:void(0);" ng-click="del(item.id)">删除</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+body {
+	font-size: 13px;
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+#lottery {
+	margin: 0 auto;
+	border: solid 1px #ccc;
+	width: 306px;
+	text-align: center;
+}
+#lottery ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 20px 0px;
+	text-align: left;
+}
+#lottery ul li {
+	border-bottom: dashed 1px #ccc;
+}
+#lottery ul li span {
+	float: left;
+	padding-left: 10px;
+}
+#lottery ul li .span {
+	width: 230px;
+}
+#lottery .btn {
+	margin: 50px 0px;
+	width: 100px;
+	height: 100px;
+}
+#lottery .item {
+	width: 100px;
+	height: 100px;
+	border: solid 1px #ccc;
+	text-align: center;
+	line-height: 100px;
+	float: left;
+}
+#lottery .active {
+	background-color: #666;
+	border: 1px solid #ccc;
+	color: #fff;
+}
+#lottery .reset {
+	float: left;
+	padding-left: 10px;
+}
+#lottery .edit {
+	float: right;
+	padding-right: 100px;
+}
+#lottery img {
+	vertical-align: bottom;
+	width: 20px;
+}
+#lottery .top {
+	margin-top: 10px;
+}
+#lottery .show {
+	display: block;
+}
+#lottery .hide {
+	display: none;
+}

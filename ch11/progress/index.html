@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="progress">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>圆形进度条</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="../../lib/angular.min.js"></script>
+</head>
+<body>
+<div id="main" ng-controller="ctrl_progress">
+	<div load-progress progress-model="ProgressValue"
+	     progress-outer-circle-background-color="#afa"
+	     progress-outer-circle-foreground-color="#ffa"
+	     progress-inner-circle-color="#aaf"
+	     progress-label-color="#faf">
+	</div>
+	<button ng-click="start()">开始</button>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
