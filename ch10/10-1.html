@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="a10_1">
+<head>
+    <title>调用element方法控制DOM元素</title>
+    <meta charset="UTF-8">
+    <script src="../lib/angular.min.js"></script>
+    <style type="text/css">
+        .frame {
+            padding: 5px 8px;
+            margin: 0px;
+            font-size: 12px;
+            width: 320px;
+            background-color: #eee;
+        }
+
+        .frame div {
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="frame" ng-controller="c10_1" id="control">
+    <button ng-click="add()">添加元素</button>
+    <button ng-click="del()">删除元素</button>
+</div>
+<script type="text/javascript">
+    var app = angular.module('a10_1', [])
+            .controller('c10_1', ['$scope', '$compile', function ($scope, $compile) {
+                $scope.hello = "Hello, Angular!";
+                $scope.log = function () {
+                    console.log('这是动态添加的方法！');
+                };
+                var html = "<div ng-click='log()'>{{hello}}</div>";
+                var template = angular.element(html);
+                var newHtml = $compile(template)($scope);
+                $scope.add = function () {
+                    angular.element(document.getElementById("control")).append(newHtml);
+                };
+                $scope.del = function () {
+                    if (newHtml) {
+                        newHtml.remove();
+                    }
+                }
+            }])
+</script>
+</body>
+</html>

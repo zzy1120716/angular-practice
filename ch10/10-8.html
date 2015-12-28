@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="a10_8">
+<head>
+    <title>释放多余的$watch监测函数</title>
+    <meta charset="UTF-8">
+    <script src="../lib/angular.min.js"></script>
+    <style type="text/css">
+        .frame {
+            padding: 5px 8px;
+            margin: 0px;
+            font-size: 12px;
+            width: 320px;
+            background-color: #eee;
+        }
+
+        .frame button, .frame div {
+            margin: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="frame" ng-controller="c10_8" class="frame">
+    <input type="text" ng-model="content">
+    <div>第 {{num}} 次数据变化</div>
+    <button ng-click="stopWatch()">停止监测</button>
+</div>
+<script type="text/javascript">
+    var app = angular.module('a10_8', [])
+        .controller('c10_8', ['$scope', function($scope) {
+            $scope.num = 0;
+            $scope.stopWatch = function() {
+                contentWatch();
+            };
+            var contentWatch = $scope.$watch('content', function(newVal, oldVal) {
+                if(newVal == oldVal) { return; }
+                $scope.num++;
+            })
+        }])
+</script>
+</body>
+</html>

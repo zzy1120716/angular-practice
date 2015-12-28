@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="a10_7">
+<head>
+    <title>解决点击按钮事件中的冒泡现象</title>
+    <meta charset="UTF-8">
+    <script src="../lib/angular.min.js"></script>
+    <style type="text/css">
+        .frame {
+            padding: 5px 8px;
+            margin: 0px;
+            font-size: 12px;
+            width: 320px;
+            background-color: #eee;
+        }
+
+        .frame div {
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="frame" ng-controller="c10_7 as o" class="frame">
+    <div ng-click="o.click('父级', $event)">
+        在按钮的单击事件中，阻止冒泡现象
+        <br/>
+        <input type="checkbox" ng-click="o.change($event)" ng-model="o.stopPropagation"/>是否阻止冒泡？
+        <br/><br/>
+        <button type="button" ng-click="o.click('按钮', $event)">点击我</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var app = angular.module('a10_7', [])
+            .controller('c10_7', ['$scope', function ($scope) {
+                var obj = this;
+                obj.click = function (name, $event) {
+                    console.log(name + "被触发");
+                    if (obj.stopPropagation) {
+                        $event.stopPropagation();
+                    }
+                };
+                obj.change = function ($event) {
+                    $event.stopPropagation();
+                };
+                return obj;
+            }]);
+</script>
+</body>
+</html>

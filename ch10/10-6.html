@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="a10_6">
+<head>
+    <title>正确理解ng-repeat指令中scope的继承关系</title>
+    <meta charset="UTF-8">
+    <script src="../lib/angular.min.js"></script>
+    <style type="text/css">
+        .frame {
+            padding: 5px 8px;
+            margin: 0px;
+            font-size: 12px;
+            width: 320px;
+            background-color: #eee;
+        }
+
+        .frame ul {
+            margin: 0px;
+            padding: 0px;
+            list-style-type: none;
+        }
+
+        .frame ul li {
+            height: 28px;
+            line-height: 28px;
+        }
+
+        .frame ul li span {
+            float: left;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="frame" ng-controller="c10_6">
+    <input type="button" value="按钮1" ng-click="change1()"/>
+    <input type="button" value="按钮2" ng-click="change2()"/>
+    <input type="button" value="按钮3" ng-click="change3()"/>
+    <ul ng-repeat="user in users track by user.id">
+        <li>
+            <span id="spn{{user.id}}">{{user.id}}</span>
+            <span id="spn{{user.id}}">{{user.name}}</span>
+            <span id="spn{{user.id}}">{{user.score}}</span>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var app = angular.module('a10_6', [])
+            .controller('c10_6', ['$scope', function ($scope) {
+                $scope.users = [
+                    {id: 1010, name: "张立秋", score: 10},
+                    {id: 1020, name: "李山浃", score: 20},
+                    {id: 1030, name: "胡正清", score: 30}
+                ];
+                $scope.change1 = function () {
+                    var scope1 = angular.element(document.getElementById("spn1010")).scope();
+                    var scope2 = angular.element(document.getElementById("spn1020")).scope();
+                    console.log(scope1 == scope2);
+                };
+                $scope.change2 = function () {
+                    var scope = angular.element(document.getElementById("spn1020")).scope();
+                    console.log(scope.$parent == $scope);
+                };
+                $scope.change3 = function () {
+                    var scope = angular.element(document.getElementById("spn1030")).scope();
+                    scope.$parent.users = [
+                        {id: 1040, name: "刘三夫", score: 40},
+                        {id: 1050, name: "闻钟华", score: 50},
+                        {id: 1060, name: "钱少忠", score: 60}
+                    ];
+                }
+            }]);
+</script>
+</body>
+</html>

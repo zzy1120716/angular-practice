@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="a10_2">
+<head>
+    <title>解决setTimeout改变属性的无效</title>
+    <meta charset="UTF-8">
+    <script src="../lib/angular.min.js"></script>
+    <style type="text/css">
+        .frame {
+            padding: 5px 8px;
+            margin: 0px;
+            font-size: 12px;
+            width: 320px;
+            background-color: #eee;
+        }
+
+        .frame div {
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="frame" ng-controller="c10_2">
+    <p>{{tip}}</p>
+</div>
+<script type="text/javascript">
+    var app = angular.module('a10_2', [])
+            .controller('c10_2', ['$scope', '$timeout', function ($scope, $timeout) {
+                $scope.tip = 'Hello, Angular!';
+
+//				//错误写法
+//				setTimeout(function() {
+//					$scope.tip = '欢迎来到angular世界！';
+//				}, 5*1000);
+
+                //正确写法一
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.tip = '欢迎来到angular世界！';
+                    });
+                }, 5 * 1000);
+
+//        //正确写法二
+//        $timeout(function() {
+//          $scope.tip = '欢迎来到angular世界！';
+//        }, 5*1000);
+            }])
+</script>
+</body>
+</html>
