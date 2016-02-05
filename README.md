@@ -1,5 +1,5 @@
-# angular_practice
-《AngularJS实战》源码
+### angular_practice
+# 《AngularJS实战》源码
 # 目录
 ## 前言 
 ## 第1章 初识Angular 
