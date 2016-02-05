@@ -1,12 +1,12 @@
 # angular_practice
 《AngularJS实战》源码
 # 目录
-前言 
+## 前言 
 第1章 初识Angular 
 1.1 Angular简介 
 1.1.1 特点 
 1.1.2 适用范围 
-1.1.3 搭建开发Angular应用的环境 
+1.1.3 搭建开发Angular应用的环境
 1.2 开发简单的Angular应用 
 示例1-1 编写一个简单的Angular程序 
 示例1-2 编写一个具有计算功能的Angular程序 
