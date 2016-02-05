@@ -1,2 +1,2 @@
 # angular_practice
-《Angular JS实战》源码
+《AngularJS实战》源码
