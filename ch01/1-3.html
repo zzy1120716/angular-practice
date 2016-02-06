@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app="a1_3">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一个绑定页面元素的angular程序</title>
+  <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+  <h3>请在下列文本框中输入任意内容</h3>
+  <div ng-controller="usercontroller">
+    <input type="text" id="Text1" ng-model="user.name" />
+    <div>{{user.name}}</div>
+  </div>
+  <script type="text/javascript">
+    angular.module("a1_3", [])
+      .controller("usercontroller", function($scope) {
+        $scope.user = {
+          name : ""
+        }
+      });
+  </script>
+</body>
+</html>
