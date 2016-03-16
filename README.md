@@ -1,4 +1,4 @@
-### angular_practice
+### angular-practice
 # 《AngularJS实战》源码
 # 目录
 ## 前言 
